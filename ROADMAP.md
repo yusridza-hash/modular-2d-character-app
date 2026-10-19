@@ -7,6 +7,7 @@ Dokumen terkait:
 - [FEATURES.md](./FEATURES.md) — Daftar fitur lengkap
 - [TECH_STACK.md](./TECH_STACK.md) — Teknologi & arsitektur
 - [SPRITE_PIPELINE.md](./SPRITE_PIPELINE.md) — Cara sprite dibuat dari gambar
+- [POSING_SYSTEM.md](./POSING_SYSTEM.md) — Cara karakter digerakkan manual agar natural
 
 ---
 
@@ -54,24 +55,28 @@ Dokumen terkait:
 2. Human parsing → mask per bagian
 3. Crop + export PNG transparent
 4. Tools koreksi manual dasar
-5. Simpan struktur folder sprite + metadata
+5. Simpan struktur folder sprite + metadata (termasuk pivot & parent)
 
 **Sukses criteria:**
 - 1 karakter front view bisa dipecah dan dirakit ulang dengan kesalahan minimal setelah koreksi manual ringan.
 
 ---
 
-## Phase 3: Modular Character Composer (3–4 minggu)
+## Phase 3: Modular Character Composer + Posing System (3–5 minggu)
 **Target jelas:**
 - Canvas editor yang bisa load hasil Phase 2
+- **Hierarchy** parent-child berfungsi
+- **Pivot point** benar-benar dipakai saat rotasi
 - Drag, rotate, scale, flip setiap bagian
-- Layer order bisa diubah
-- Pivot point berfungsi (bagian berputar di titik yang benar)
+- Constraint sudut dasar (minimal siku & lutut)
+- Layer order bisa diubah (manual dulu)
 - Bisa simpan & load Pose
 - Switch Front ↔ Side (kalau side sudah ada)
 
 **Sukses criteria:**
-- User bisa merakit karakter dan membuat 3–5 pose berbeda dengan nyaman.
+- User bisa merakit karakter dan membuat 3–5 pose berbeda yang **tidak terlihat patah/aneh** dengan nyaman.
+
+Lihat detail lengkap di [POSING_SYSTEM.md](./POSING_SYSTEM.md).
 
 ---
 
@@ -107,10 +112,13 @@ Dokumen terkait:
 - Export sprite sheet
 - Consistency warning antar angle
 - UI/UX polish + dark mode
+- Improve constraint & auto layer order
 
 ---
 
 ## Phase 7: Advanced (Opsional)
+- Inverse Kinematics (IK) untuk tangan & kaki
+- Soft mesh deformation di area sendi
 - Auto generate angle yang kurang
 - Simple animation (blink, idle)
 - Integrasi ComfyUI untuk generate ekspresi baru
@@ -120,16 +128,17 @@ Dokumen terkait:
 
 ## Ringkasan Prioritas & Estimasi
 
-| Phase | Fokus Utama                      | Estimasi | Prioritas      | Sukses Criteria Utama                      |
-|-------|----------------------------------|----------|----------------|--------------------------------------------|
-| 0     | Setup + Schema + Riset Model     | 1-2 mg   | Tinggi         | Environment & schema siap                  |
-| 1     | Upload Multi-Angle               | 2-3 mg   | Tinggi         | Bisa kelola project + gambar angle         |
-| 2     | Segmentation → Sprite            | 3-5 mg   | **Sangat Tinggi** | 1 gambar → sprite modular + koreksi mask |
-| 3     | Composer Modular                 | 3-4 mg   | **Sangat Tinggi** | Bisa pose karakter dengan nyaman         |
-| 4     | Ekspresi                         | 2-3 mg   | Tinggi         | 5+ ekspresi per karakter                   |
-| 5     | Scene + Background               | 2-3 mg   | Tinggi         | 1 panel comic bisa di-export               |
-| 6     | Polish                           | 2-4 mg   | Sedang         | App terasa nyaman dipakai                  |
+| Phase | Fokus Utama                         | Estimasi | Prioritas         | Sukses Criteria Utama                                      |
+|-------|-------------------------------------|----------|-------------------|------------------------------------------------------------|
+| 0     | Setup + Schema + Riset Model        | 1-2 mg   | Tinggi            | Environment & schema siap                                  |
+| 1     | Upload Multi-Angle                  | 2-3 mg   | Tinggi            | Bisa kelola project + gambar angle                         |
+| 2     | Segmentation → Sprite + Pivot       | 3-5 mg   | **Sangat Tinggi** | 1 gambar → sprite modular + pivot + koreksi mask          |
+| 3     | Composer + Posing Natural           | 3-5 mg   | **Sangat Tinggi** | Pose manual terasa natural, tidak patah                    |
+| 4     | Ekspresi                            | 2-3 mg   | Tinggi            | 5+ ekspresi per karakter                                   |
+| 5     | Scene + Background                  | 2-3 mg   | Tinggi            | 1 panel comic bisa di-export                               |
+| 6     | Polish                              | 2-4 mg   | Sedang            | App terasa nyaman dipakai                                  |
+| 7     | IK, Mesh, Animation, dll            | -        | Opsional          | Posing makin advanced                                      |
 
 ---
 
-*Update terakhir: penyusunan fitur, tech stack, dan pipeline sprite agar target tiap phase lebih jelas.*
+*Update: ditambahkan pembahasan lengkap sistem posing agar karakter bisa digerakkan manual tanpa terlihat aneh.*
