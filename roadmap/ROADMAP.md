@@ -15,3 +15,12 @@
 Import Arlo -> segment -> manual repair -> rig -> save pose -> drag to panel -> swap shocked face -> add foreground prop/background -> auto scene-fit preview -> export PNG -> reopen unchanged. Do not certify any phase without test evidence.
 ## Required specs
 [Product](../docs/product/PRODUCT-SPEC.md) · [Editor](../docs/design/UI-UX-SPEC.md) · [Rig](../docs/architecture/CHARACTER-RIG-AND-EXPRESSION.md) · [Blending](../docs/architecture/SCENE-CANVAS-BLENDING.md) · [Versions](../docs/architecture/ASSET-VERSIONING.md) · [Database](../docs/08-DATABASE-SUPABASE.md) · [Tests](../docs/quality/TEST-STRATEGY.md).
+
+## Additional approved design requirements (2026-10-19)
+Phase 0: fix module boundaries (Asset Creation/Library/Comic Production/Publishing), Character Master/Instance contracts, rendering adapter/composite, project-page-panel scene separation, wizard wireframe, and quality gates per docs/quality/PREBUILD-DESIGN-GATES.md.
+Phase 1–2: Character Preparation Wizard across import/clean/segment/repair with recoverable drafts and quality states.
+Phase 3–4: editable composite rig + body pose presets, face expression packs and independent scene instance overrides.
+Phase 5: Smart Asset Browser, drag-drop, hand-anchor prop attachments, foreground/midground occlusion, static Comic Page Editor, consistent blending preview/export.
+Phase 6: accessibility, autosave/recovery, page export regression/performance checks.
+Phase 7: only optional advanced STATIC comic functionality; no timeline/video.
+Canonical addenda: docs/architecture/COMIC-PRODUCTION-CONTRACT.md; docs/architecture/ASSET-BROWSER-AND-COMPOSITING.md; docs/design/CHARACTER-PREPARATION-WIZARD.md; docs/design/COMIC-PAGE-EDITOR.md.
