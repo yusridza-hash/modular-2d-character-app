@@ -51,3 +51,7 @@ characters/luna/
 - Source asli + clean + mask disimpan agar bisa reprocess.
 
 Lihat juga: [01-BUILD-RULES.md](01-BUILD-RULES.md) poin 3 & 6.
+
+
+## Static Comic Product Gate (2026-10-19)
+The purpose of this work is reusable, versioned character sprites for drag-and-drop comic image panels. Preserve original images, processed masks, source offsets, view compatibility and immutable versions. Pose/edit manual correction and prebuilt facial expression swaps must remain supported downstream. No video, animation or timeline dependency. See docs/BUILD-SPEC-INDEX.md.
