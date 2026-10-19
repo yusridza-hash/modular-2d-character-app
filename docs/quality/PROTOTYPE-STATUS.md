@@ -20,3 +20,9 @@ Phase 0 IN PROGRESS, no phase completed. Do not mark pass until runnable skeleto
 3. Import image, Download Project, reload editor, Import Project; verify bitmap source survived.
 4. Export PNG; verify unwanted selection outlines/guides and address via dedicated export renderer.
 5. Drag placement scale at other viewport sizes; fix coordinate transform before production.
+
+## Separate Comic Editor branch session (2026-10-19)
+- Branch: feature/comic-editor (branched from main for isolation from Character Engine collaborator).
+- src/studio.tsx: stage-relative drag/drop coordinate correction, excluding selection bounds and editor ground guide during PNG export, restoring overlays in finally.
+- Validation attempted: git clone + npm install + npm run build on container; BLOCKED by DNS failure (Could not resolve host github.com). No successful build/runtime confirmation. Do not mark Phase 0/5/6 complete.
+- Next: run CI or Codespaces npm install, npm run build, and browser smoke test. Remaining: saving real imported image assets durably, compositor/rig integration, page export, real blending.
