@@ -1,21 +1,16 @@
-# Phase 5 — Scene, Background, Blending
-
-## Tujuan
-
-Panel comic: background + karakter ter-pose + shadow/skala masuk akal + bubble + export.
-
-## Pekerjaan
-
-- Library background + ground line
-- Letakkan karakter (pose, scale, flip, shadow)
-- Contact shadow
-- Text bubble dasar
-- Export PNG + simpan scene JSON
-
+# Phase 5 — Static Comic Canvas, Library, Layering & Auto Blend
+## Required
+- Library visible simultaneously with canvas and Inspector; search/thumbs/favorites for characters, props, background. Pointer drag/drop and accessible Add button create version-pinned scene instances, never change master.
+- Page/panel navigation strip, panel duplicate, per-panel scene doc, background crop, dialogue balloons.
+- Object mode for transforms; character pose mode (from Phase 3) and expression thumbnail quick swap (Phase 4) in Inspector.
+- Depth/layer order, foreground occlusion, prop anchors, ground guides, multi-contact shadow.
+- Live automatic blending preview: grounding, shadows, conservative color/tone match, edge outline-preserving softness. Inspector auto/quick/advanced controls; background blend presets. Export final high-resolution PNG using same scene definition; no hidden generative rerender.
+- Persistent page/panel/revisions/asset references; reopen unchanged.
 ## Definition of Done
-
-- [ ] 1 scene dengan 1–2 karakter tidak kaki melayang (ada ground + shadow)
-- [ ] Skala konsisten lewat field scale / reference height
-- [ ] Export PNG berhasil
-- [ ] Scene JSON bisa dibuka lagi untuk edit
-- [ ] Mematuhi `docs/05-BLENDING-AND-SCALE.md` dan `docs/06-ASSETS-AND-SCENE.md`
+- [ ] Drag Arlo into panel, independent expression and pose in two instances.
+- [ ] Drop foreground prop and verify correct occlusion with image test.
+- [ ] Ground/shadow follows movement and scale; no mandatory snap if ground absent.
+- [ ] Live preview and final exported PNG match documented quality tolerance.
+- [ ] Save/reopen, undo/redo, panel duplicate work without master asset mutation.
+- [ ] No video controls, timeline or FPS are implemented.
+See docs/design/UI-UX-SPEC.md and docs/architecture/SCENE-CANVAS-BLENDING.md.
