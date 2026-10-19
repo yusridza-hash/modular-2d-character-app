@@ -18,3 +18,7 @@
 - [ ] User bisa koreksi mask dan pivot, lalu simpan ulang
 - [ ] Source + clean + sprites tersimpan (reproducible)
 - [ ] Mematuhi Build Rules #3 dan #6
+
+
+## Static Comic Product Gate (2026-10-19)
+The purpose of this work is reusable, versioned character sprites for drag-and-drop comic image panels. Preserve original images, processed masks, source offsets, view compatibility and immutable versions. Pose/edit manual correction and prebuilt facial expression swaps must remain supported downstream. No video, animation or timeline dependency. See docs/BUILD-SPEC-INDEX.md.
