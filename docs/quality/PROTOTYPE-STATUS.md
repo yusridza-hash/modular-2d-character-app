@@ -7,3 +7,16 @@ Real multipart AI segmentation pipeline and wizard; proper sprite rig metadata a
 GitHub commit and tree verification successful. No npm dependency install, TypeScript compile, automated test or runtime browser test was completed in this session because build environment could not reach github.com. Treat app as UNVERIFIED and NOT production-ready. Commands to test: npm install; npm run build; npm run dev. Run in Codespaces or local machine with network access and fix actual compiler/runtime errors.
 ## Phase status
 Phase 0 IN PROGRESS, no phase completed. Do not mark pass until runnable skeleton and automated acceptance checks.
+
+## 2026-10-19 build session update
+- Added Download Project: exports project version 1 JSON with asset records, panel instances and embedded user-imported image data URLs.
+- Added Import Project: validates envelope then restores asset library and panels; user can move work between browsers manually. This is an early portable backup, NOT production autosave, cloud persistence, or trusted secure importer.
+- Fixed React event type import for drag and drop handler, and updated toolbar styling.
+- Existing localStorage Save/Load is limited to panel JSON and should not be relied on for retaining imported assets: use Download Project instead.
+- **No dependency installation, TypeScript compile, browser E2E, nor exported-image regression was verified**, since github.com connectivity fails in local container. Build remains UNVERIFIED; treat Phase 0 IN PROGRESS. Export currently captures stage overlays (ground guide/selection), so clean final rendering still needs separation of editor UI from render output.
+### Immediate verification gates
+1. npm install && npm run build (no TS/peer dependency errors).
+2. npm run dev; drag sample Arlo and swap expression independently.
+3. Import image, Download Project, reload editor, Import Project; verify bitmap source survived.
+4. Export PNG; verify unwanted selection outlines/guides and address via dedicated export renderer.
+5. Drag placement scale at other viewport sizes; fix coordinate transform before production.
