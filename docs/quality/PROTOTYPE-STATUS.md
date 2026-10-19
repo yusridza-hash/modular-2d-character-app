@@ -38,3 +38,8 @@ Agree and implement shared Character Asset/rig adapter, project and scene versio
 - CSS updates make asset search, bubble editor and responsive canvas controls usable.
 - GitHub Actions CI PASS: https://github.com/yusridza-hash/modular-2d-character-app/actions/runs/39225428550 (build, unit, Chromium browser smoke, FastAPI API tests).
 - Still pending: true pan/scroll navigation at high zoom, transform handles, production high-fidelity masks, full page layouts, Supabase migrations and integration with Grok Character Engine. Do not mark Phase 0/5/6 DONE.
+
+## CI status — Pan and zoom tests (2026-10-19)
+- PASS: build, Vitest, Playwright Chromium browser smoke, and FastAPI pytest at GitHub Actions run 39225977301 (commit bbc0ff34).
+- Added pan control and browser navigation smoke check. Canvas visual/interaction quality beyond smoke test NOT measured.
+- Important phase distinction: CI PASS for implemented checks is NOT Phase 0/5/6 DONE. Open scope still includes Supabase migration/RLS, production compositor/blend, multi-page layout/typography, asset-version integration and stronger visual export tests.
