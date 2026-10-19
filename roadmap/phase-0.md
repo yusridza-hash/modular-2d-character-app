@@ -21,3 +21,7 @@ Lingkungan dev siap, schema data + **aturan database Supabase** final, model OSS
 - [ ] Script lokal: parsing/SAM2 mask berjalan
 - [ ] README menunjuk roadmap & build rules
 - [ ] Tidak ada dependensi berbayar di path inti
+
+
+## Comic-only build alignment (2026-10-19)
+Refer to docs/BUILD-SPEC-INDEX.md and canonical UI/rig/blending/versioning/testing contracts. This phase must not add timeline, animation, sound, FPS or video. Character library drag-drop is scene instance based, facial presets are swappable, and scene preview/final export must follow same compositing specification. DoD needs demonstrated tests; documentation alone does not complete phase.
