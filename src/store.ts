@@ -11,7 +11,7 @@ type State={assets:Asset[];panels:ComicPanel[];active:string;selected?:string;hi
 addAsset:(asset:Asset)=>void;addPanel:()=>void;selectPanel:(id:string)=>void;select:(id?:string)=>void;
 drop:(id:string,x:number,y:number)=>void;update:(id:string,patch:Partial<Instance>)=>void;remove:()=>void;setBackground:(url:string)=>void;undo:()=>void;redo:()=>void;load:(panels:ComicPanel[])=>void;loadProject:(assets:Asset[],panels:ComicPanel[])=>void;};
 const start:ComicPanel={id:'panel-1',name:'Panel 01',objects:[]};
-export const useStudio=create<State>((set,get)=>({
+export const useStudio=create<State>((set)=>({
 assets:demoAssets,panels:[start],active:start.id,selected:undefined,history:[],future:[],
 addAsset:asset=>set(s=>({assets:[...s.assets,asset]})),
 addPanel:()=>set(s=>{const p={id:newId(),name:'Panel '+String(s.panels.length+1).padStart(2,'0'),objects:[]};return {...saveHistory(s),panels:[...s.panels,p],active:p.id,selected:undefined}}),
