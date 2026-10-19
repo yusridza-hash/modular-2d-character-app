@@ -1,0 +1,60 @@
+# 01 — Build Rules (Wajib Dipatuhi)
+
+Aturan ini mengikat semua phase. Melanggar = utang teknis yang harus dibayar nanti.
+
+## 1. Open Source First
+
+- Library & model yang dipakai harus open source atau lisensi permissif (MIT, Apache 2.0, BSD, dll).
+- Catat lisensi setiap dependensi di `docs/02-TECH-AND-OSS.md`.
+- Jangan pakai model/API berbayar sebagai dependensi inti tanpa alternatif open source.
+
+## 2. Data-Driven, Bukan Hardcode
+
+- Semua karakter, pose, ekspresi, scene disimpan sebagai data (JSON + file PNG).
+- Kode hanya membaca schema yang didefinisikan di `docs/07-DATA-SCHEMA.md`.
+- Jangan hardcode nama bagian tubuh di banyak tempat — pakai konstanta/enum dari schema.
+
+## 3. Pipeline Sprite Harus Reproducible
+
+- Input yang sama + parameter yang sama = output sprite yang sama.
+- Simpan selalu: source asli, source clean (tanpa background), mask, sprite final, metadata.
+- Bisa di-reprocess ulang nanti kalau model parsing lebih bagus.
+
+## 4. Posing Wajib Hierarchy + Pivot + Constraint
+
+- Tidak boleh ada bagian yang “free float” tanpa parent (kecuali root).
+- Setiap bagian yang bisa diputar wajib punya pivot point.
+- Joint utama (siku, lutut, bahu) wajib punya constraint sudut minimal.
+- Detail: `docs/04-POSING-SYSTEM.md`.
+
+## 5. Skala & Blending Tidak Boleh Diabaikan
+
+- Karakter di scene harus punya sistem unit/skala yang konsisten (mis. pixels-per-meter atau reference height).
+- Blending ke background (shadow, contact, color grade ringan) wajib ada di Phase 5+.
+- Detail: `docs/05-BLENDING-AND-SCALE.md`.
+
+## 6. UI Koreksi Manual Selalu Tersedia
+
+- Segmentation tidak akan sempurna. Selalu sediakan brush add/subtract mask + edit pivot.
+- Jangan buat pipeline “fully automatic only” tanpa jalan keluar manual.
+
+## 7. Phase Selesai Hanya Jika Kriteria Terpenuhi
+
+- Setiap phase punya file `roadmap/phase-X.md` dengan **Definition of Done**.
+- Jangan loncat phase sebelum DoD sebelumnya terpenuhi (kecuali dicatat sebagai exception).
+
+## 8. Commit & Dokumentasi
+
+- Perubahan schema data harus update `docs/07-DATA-SCHEMA.md` di commit yang sama.
+- Fitur baru yang mengubah cara pose/blend harus update dokumen terkait.
+
+## 9. Performa & Ukuran Aset
+
+- Sprite per bagian diusahakan wajar (hindari 4K untuk satu lengan).
+- Canvas editor harus tetap responsif untuk 1–3 karakter di satu scene pada hardware target.
+
+## 10. Bahasa & Naming
+
+- Kode: English (variable, function, class).
+- Dokumentasi user-facing bisa Indonesia.
+- Nama file sprite: `snake_case` (`upper_arm_l.png`).

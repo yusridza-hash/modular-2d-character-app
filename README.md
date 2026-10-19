@@ -1,37 +1,43 @@
 # Modular 2D Character / Sprite Composer App
 
-Aplikasi untuk mengubah karakter AI-generated (multi-angle) menjadi **sprite modular 2D** yang bisa disusun, dipose, diganti ekspresi, di-flip, dan digabungkan dengan background untuk membuat scene/comic panel yang konsisten.
+Aplikasi untuk mengubah karakter AI-generated (multi-angle) menjadi **sprite modular 2D** yang bisa disusun, dipose secara natural, diganti ekspresi, di-flip, digabung dengan background, dan dipakai untuk scene/comic panel yang konsisten.
 
-## Konsep Utama
+## Struktur Dokumentasi (Baca Sesuai Urutan)
 
-1. User generate karakter dari beberapa sudut (depan, samping, belakang, 3/4).
-2. App memecah gambar tersebut menjadi bagian-bagian sprite (kepala, rambut, badan, lengan, kaki, dll).
-3. User menyusun ulang karakter secara modular, mengatur pose, ekspresi, dan view.
-4. Background bisa di-reuse berulang kali.
-5. Hasilnya konsisten karena asetnya fixed, bukan di-generate ulang setiap kali.
+```
+docs/
+  00-OVERVIEW.md          ← Mulai dari sini
+  01-BUILD-RULES.md       ← Aturan wajib saat build (sangat penting)
+  02-TECH-AND-OSS.md      ← Tech stack + integrasi open source
+  03-SPRITE-PIPELINE.md   ← Cara gambar → sprite modular
+  04-POSING-SYSTEM.md     ← Gerakan manual agar tidak aneh
+  05-BLENDING-AND-SCALE.md← Blending ke background + ukuran tidak kaku
+  06-ASSETS-AND-SCENE.md  ← Aset tambahan, background, scene composer
+  07-DATA-SCHEMA.md       ← Format data (JSON) yang dipakai
 
-## Roadmap
+roadmap/
+  ROADMAP.md              ← Arahan utama + lokasi semua dokumen
+  phase-0.md ... phase-7.md ← Kriteria detail & definisi selesai tiap phase
+```
 
-Lihat file [ROADMAP.md](./ROADMAP.md) untuk detail lengkap setiap phase.
+## Status Saat Ini
 
-## Status
+- [x] Perencanaan & dokumentasi lengkap
+- [ ] Phase 0 – Setup
+- [ ] Phase 1 – Character Ingestion
+- [ ] Phase 2 – Sprite Extraction
+- [ ] Phase 3 – Composer + Posing
+- [ ] Phase 4 – Expression
+- [ ] Phase 5 – Scene
+- [ ] Phase 6 – Polish
+- [ ] Phase 7 – Advanced
 
-- [x] Perencanaan & Roadmap
-- [ ] Phase 0 - Setup
-- [ ] Phase 1 - Character Ingestion
-- [ ] Phase 2 - Auto Segmentation
-- [ ] Phase 3 - Modular Composer
-- [ ] Phase 4 - Expression System
-- [ ] Phase 5 - Scene Composer
-- [ ] Phase 6 - Polish
+## Prinsip Utama
 
-## Tech Stack (Rencana)
+1. **Aset fixed > generate ulang** — konsistensi dari sprite modular, bukan dari prompt.
+2. **Semi-otomatis** — AI bantu pecah sprite, user koreksi ringan.
+3. **Posing natural** — hierarchy + pivot + constraint.
+4. **Blending & skala** — karakter menyatu dengan background, ukuran proporsional.
+5. **Open source first** — semua model & library yang dipilih harus open source / permissif.
 
-- **Frontend:** React / Next.js + Canvas (Fabric.js / Konva.js)
-- **Backend:** Python (FastAPI)
-- **AI Engine:** ComfyUI / diffusers + SAM2 + Human Parsing
-- **Storage:** Local folder → nanti cloud
-
----
-
-Dibuat untuk kebutuhan pembuatan comic/scene dengan karakter yang benar-benar konsisten.
+Mulai baca: [docs/00-OVERVIEW.md](docs/00-OVERVIEW.md) lalu [roadmap/ROADMAP.md](roadmap/ROADMAP.md).
