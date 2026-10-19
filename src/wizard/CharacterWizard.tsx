@@ -1,19 +1,20 @@
-import { useMemo, useRef, useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { Stage, Layer, Image as KonvaImage, Group, Circle, Text, Rect } from 'react-konva';
-import { useCharacterEngine, activeDraft, WIZARD_STAGES } from '../character/engineStore';
+import { useCharacterEngine, activeDraft } from '../character/engineStore';
 import {
   BodyPart,
   CharacterView,
   VIEWS,
-  WIZARD_STAGES as STAGES,
+  WIZARD_STAGES,
   BODY_PARTS,
   DEFAULT_PART_META,
+  CharacterPart,
 } from '../character/types';
 import { loadImage } from '../character/pipeline';
 
 function useHtmlImage(src?: string) {
   const [img, setImg] = useState<HTMLImageElement>();
-  useMemo(() => {
+  useEffect(() => {
     if (!src) {
       setImg(undefined);
       return;
@@ -57,7 +58,6 @@ export default function CharacterWizard({
   const [newName, setNewName] = useState('Arlo');
   const [tolerance, setTolerance] = useState(42);
   const [exprName, setExprName] = useState('happy');
-  const fileRef = useRef<HTMLInputElement>(null);
 
   const angle = draft?.angles[draft.activeView];
   const previewSrc = angle?.cleanDataUrl || angle?.sourceDataUrl;
@@ -86,6 +86,7 @@ export default function CharacterWizard({
       r.readAsDataURL(file);
     });
     eng.addExpression(exprName || file.name, dataUrl);
+    e.target.value = '';
   }
 
   function goPublish() {
@@ -120,7 +121,7 @@ export default function CharacterWizard({
         </header>
 
         <div className="wizard-rail">
-          {STAGES.map((s) => (
+          {WIZARD_STAGES.map((s) => (
             <button
               key={s}
               type="button"
@@ -235,7 +236,12 @@ export default function CharacterWizard({
                       onChange={(e) => setTolerance(Number(e.target.value))}
                     />
                   </label>
-                  <button type="button" className="primary" disabled={eng.busy} onClick={() => void eng.runClean(tolerance)}>
+                  <button
+                    type="button"
+                    className="primary"
+                    disabled={eng.busy}
+                    onClick={() => void eng.runClean(tolerance)}
+                  >
                     Run clean
                   </button>
                 </div>
@@ -254,9 +260,13 @@ export default function CharacterWizard({
                   )}
                 </div>
                 <p className="tip">
-                  MVP uses corner-color sampling (client-side). For production, swap pipeline for BiRefNet/RemBG worker — same draft fields.
+                  MVP uses corner-color sampling (client-side). Production can swap in BiRefNet/RemBG worker — same draft fields.
                 </p>
-                <button type="button" onClick={() => eng.setStage('segment')} disabled={!angle?.cleanDataUrl && !angle?.sourceDataUrl}>
+                <button
+                  type="button"
+                  onClick={() => eng.setStage('segment')}
+                  disabled={!angle?.cleanDataUrl && !angle?.sourceDataUrl}
+                >
                   Next: Segment
                 </button>
               </div>
@@ -265,7 +275,12 @@ export default function CharacterWizard({
             {draft && draft.stage === 'segment' && (
               <div>
                 <h3>Segment — body parts</h3>
-                <button type="button" className="primary" disabled={eng.busy} onClick={() => void eng.runSegment()}>
+                <button
+                  type="button"
+                  className="primary"
+                  disabled={eng.busy}
+                  onClick={() => void eng.runSegment()}
+                >
                   Run heuristic segment
                 </button>
                 <div className="part-grid">
@@ -276,8 +291,12 @@ export default function CharacterWizard({
                     </div>
                   ))}
                 </div>
-                <p className="tip">Heuristic bands only — repair pivots next. Manual paint tools can extend this step later.</p>
-                <button type="button" onClick={() => eng.setStage('repair')} disabled={!angle?.parts?.length}>
+                <p className="tip">Heuristic bands only — adjust pivots in Repair. Brush paint can extend this later.</p>
+                <button
+                  type="button"
+                  onClick={() => eng.setStage('repair')}
+                  disabled={!angle?.parts?.length}
+                >
                   Next: Repair
                 </button>
               </div>
@@ -355,35 +374,45 @@ export default function CharacterWizard({
               <div className="rig-layout">
                 <div>
                   <h3>Rig — FK pose test</h3>
-                  <RigPreview
-                    parts={angle?.parts ?? []}
-                    workPose={eng.workPose}
-                    previewImg={previewImg}
-                  />
+                  <RigPreview parts={angle?.parts ?? []} workPose={eng.workPose} previewImg={previewImg} />
                 </div>
                 <div>
                   <h4>Joints</h4>
-                  {(['head', 'upper_arm_l', 'lower_arm_l', 'upper_arm_r', 'lower_arm_r', 'upper_leg_l', 'lower_leg_l', 'upper_leg_r', 'lower_leg_r'] as BodyPart[]).map(
-                    (part) => (
-                      <div key={part}>
-                        <label>
-                          {part} {eng.workPose[part] ?? 0}°
-                        </label>
-                        <input
-                          type="range"
-                          min={-120}
-                          max={145}
-                          value={eng.workPose[part] ?? 0}
-                          onChange={(e) => eng.setWorkPosePart(part, Number(e.target.value))}
-                        />
-                      </div>
-                    ),
-                  )}
+                  {(
+                    [
+                      'head',
+                      'upper_arm_l',
+                      'lower_arm_l',
+                      'upper_arm_r',
+                      'lower_arm_r',
+                      'upper_leg_l',
+                      'lower_leg_l',
+                      'upper_leg_r',
+                      'lower_leg_r',
+                    ] as BodyPart[]
+                  ).map((part) => (
+                    <div key={part}>
+                      <label>
+                        {part} {eng.workPose[part] ?? 0}°
+                      </label>
+                      <input
+                        type="range"
+                        min={-120}
+                        max={145}
+                        value={eng.workPose[part] ?? 0}
+                        onChange={(e) => eng.setWorkPosePart(part, Number(e.target.value))}
+                      />
+                    </div>
+                  ))}
                   <div className="row">
                     <button type="button" onClick={() => eng.resetWorkPose()}>
                       Reset pose
                     </button>
-                    <button type="button" className="primary" onClick={() => eng.savePosePreset(`Pose ${draft.poses.length + 1}`)}>
+                    <button
+                      type="button"
+                      className="primary"
+                      onClick={() => eng.savePosePreset(`Pose ${draft.poses.length + 1}`)}
+                    >
                       Save pose preset
                     </button>
                   </div>
@@ -406,9 +435,13 @@ export default function CharacterWizard({
             {draft && draft.stage === 'expressions' && (
               <div>
                 <h3>Expression packs</h3>
-                <p className="muted">Upload whole-face variants (≥5 target). Swap does not move limbs.</p>
+                <p className="muted">Upload whole-face variants (target ≥5). Swap must not move limbs.</p>
                 <div className="row">
-                  <input value={exprName} onChange={(e) => setExprName(e.target.value)} placeholder="preset name" />
+                  <input
+                    value={exprName}
+                    onChange={(e) => setExprName(e.target.value)}
+                    placeholder="preset name"
+                  />
                   <label className="filebutton inlinefile">
                     Upload face
                     <input type="file" accept="image/*" onChange={(e) => void onExprFile(e)} />
@@ -462,12 +495,13 @@ function RigPreview({
   workPose,
   previewImg,
 }: {
-  parts: { part: BodyPart; fileDataUrl: string; meta: typeof DEFAULT_PART_META['body'] }[];
+  parts: CharacterPart[];
   workPose: Partial<Record<BodyPart, number>>;
   previewImg?: HTMLImageElement;
 }) {
   const [partImgs, setPartImgs] = useState<Partial<Record<BodyPart, HTMLImageElement>>>({});
-  useMemo(() => {
+
+  useEffect(() => {
     let cancelled = false;
     (async () => {
       const map: Partial<Record<BodyPart, HTMLImageElement>> = {};
@@ -487,8 +521,6 @@ function RigPreview({
 
   const W = 320;
   const H = 420;
-
-  // Simple stacked preview with rotations (not full hierarchy matrix — readable MVP)
   const order = [...parts].sort((a, b) => a.meta.layer - b.meta.layer);
 
   return (
@@ -497,14 +529,7 @@ function RigPreview({
         <Layer>
           <Rect width={W} height={H} fill="#1a222b" />
           {previewImg && (
-            <KonvaImage
-              image={previewImg}
-              x={40}
-              y={20}
-              width={240}
-              height={360}
-              opacity={0.15}
-            />
+            <KonvaImage image={previewImg} x={40} y={20} width={240} height={360} opacity={0.15} />
           )}
           {order.map((p) => {
             const im = partImgs[p.part];
@@ -531,3 +556,6 @@ function RigPreview({
     </div>
   );
 }
+
+// silence unused if tree-shaken
+void DEFAULT_PART_META;
