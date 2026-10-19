@@ -6,3 +6,6 @@ Implementation statuses: documentation/design baseline only; no phase or code fe
 
 ## Mandatory 2026-10-19 production architecture additions
 Read [Character Preparation Wizard](design/CHARACTER-PREPARATION-WIZARD.md), [Comic Production Contract](architecture/COMIC-PRODUCTION-CONTRACT.md), [Smart Asset Browser and Compositor](architecture/ASSET-BROWSER-AND-COMPOSITING.md), [Comic Page Editor](design/COMIC-PAGE-EDITOR.md), [Design Gates](quality/PREBUILD-DESIGN-GATES.md). These make the four-layer design mandatory: Asset Creation → Asset Registry → Comic Production → Static Publishing. Complete design gates before Phase 0 exit. No animation/video.
+
+## Code status
+An initial prototype has been committed under `src/`; development Phase 0 is **in progress**, not complete. Read quality/PROTOTYPE-STATUS.md for the precise features and limitations. No build success claim until reproducible compile and browser run are verified.
