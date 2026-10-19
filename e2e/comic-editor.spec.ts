@@ -7,5 +7,7 @@ test('editor creates a panel and switches static comic expression',async ({page}
  await page.getByRole('button',{name:'shocked'}).click();
  await page.getByRole('button',{name:'＋ Speech bubble'}).click();
  await expect(page.getByText('Dialogue bubbles')).toBeVisible();
+ await page.getByRole('button',{name:'Fit',exact:true}).click();
+ await page.getByRole('button',{name:'＋',exact:true}).last().click();
  await page.getByRole('button',{name:'Export PNG'}).click();
 });
