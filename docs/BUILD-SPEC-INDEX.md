@@ -1,0 +1,5 @@
+# Build Specification Index — Canonical decisions (2026-10-19)
+**PRODUCT LOCK: STATIC COMIC/IMAGE ONLY.** There is NO video, timeline, FPS, keyframes, motion/audio, or animation feature. If older notes conflict, this index and linked product specification supersede them until synchronized.
+Read in order: product/PRODUCT-SPEC.md → design/UI-UX-SPEC.md → architecture/CHARACTER-RIG-AND-EXPRESSION.md → architecture/ASSET-VERSIONING.md → architecture/SCENE-CANVAS-BLENDING.md → 07-DATA-SCHEMA.md → 08-DATABASE-SUPABASE.md → quality/TEST-STRATEGY.md → operations/DEPLOYMENT-AND-RECOVERY.md → roadmap/ROADMAP.md.
+Critical integration: library thumbnail drag→scene instance→object/pose mode→quick expression swap→live scene-fit auto blending→page/panel save→consistent final PNG render. Background and character master never silently modified. Manual editing always possible. AI optional (architecture/AI-SKILLS-STORY.md).
+Implementation statuses: documentation/design baseline only; no phase or code feature should be checked off without passing acceptance tests. Framework/model specifics, exact SQL migrations and wireframe approval remain engineering validation tasks.
