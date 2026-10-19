@@ -40,3 +40,16 @@ Phase 0 IN PROGRESS, no phase completed. Do not mark pass until runnable skeleto
 - Added IndexedDB project autosave, load on startup, manual Save/Load and portable JSON import/export with imported image data; browser storage limits and schema trust/security still require production hardening.
 - Stage-relative drag placement and clean PNG export without editor ground guide/selection overlay.
 - **Browser E2E, visual regression, page composition, background color-matching, mask/prop occlusion, Supabase storage, user account security and Grok character-engine integration remain NOT IMPLEMENTED or NOT VERIFIED.** Do not mark Phase 0/5/6 complete.
+
+## Subsequent implementation (Phase 0, 5, 6)
+- Static Comic Panel has editable and draggable speech-bubble objects, independent panel records, layer back/front controls for selected characters or props.
+- Added apps/api FastAPI health/capabilities scaffold and Python pytest checks, independent of Grok Character Engine routes.
+- Added Playwright browser test and GitHub Actions Chromium test execution; Vitest test discovery now excludes Playwright e2e folder.
+- CI verifies build and unit tests in earlier commits; full browser smoke remains under validation. Do not report browser pass until job conclusion.
+## Remaining work blocking full Phase 0/5/6 completion
+- Real Supabase migrations, RLS/security tests, authenticated API and server assets storage.
+- Generalized scene graph/character renderer with correct source-image rig metadata from Grok.
+- Production page layout templates, bubble tails/typography, advanced attachments, foreground masks.
+- Auto tone/edge blending and preview-export visual parity tests.
+- Drag/zoom responsive viewport and multiple device resolution tests.
+- Project file schema safety, schema migrations, storage quotas, cloud save/restore and browser crash recovery tests.
