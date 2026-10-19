@@ -1,51 +1,56 @@
 # Supabase setup — lanjut setelah database dibuat
 
-## 1. Pastikan schema
+## 1. Schema
 
-Jika tabel belum lengkap, jalankan SQL di:
+Jika belum, jalankan di SQL Editor:
 
 `supabase/migrations/001_character_engine.sql`
 
-di **Supabase Dashboard → SQL Editor → Run**.
+(tabel characters, angles, parts, expressions, poses, RLS, storage buckets)
 
-Ini membuat: profiles, characters, character_angles, character_parts, character_expressions, character_poses, RLS, bucket `character-sources` & `character-assets`.
-
-Kalau kamu sudah buat schema manual, bandingkan dengan file itu / `docs/08-DATABASE-SUPABASE.md`.
-
-## 2. Env di project app
+## 2. Env
 
 ```bash
 cp .env.example .env.local
 ```
 
-Isi dari **Project Settings → API**:
+Dari **Settings → API**:
 
-- `VITE_SUPABASE_URL` = Project URL
-- `VITE_SUPABASE_ANON_KEY` = `anon` `public` key (**bukan** service_role)
+```
+VITE_SUPABASE_URL=https://xxxx.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJ...
+```
+
+Restart `npm run dev` setelah mengubah env.
 
 ## 3. Auth
 
-- Enable Email provider di Authentication.
-- Di app: **Sign up** lalu **Sign in** (Auth bar di header).
-- RLS memakai `auth.uid()` = `owner_id`.
+1. Authentication → Providers → Email ON  
+2. Di app header: **Sign up** / **Sign in**  
+3. RLS: hanya data `owner_id = auth.uid()`
 
-## 4. Install & run
+## 4. Alur pakai
 
 ```bash
 npm install
 npm run dev
 ```
 
-## 5. Sync draft ke DB
+1. Sign in  
+2. Character Wizard → kerjakan draft  
+3. **Publish to Library** → otomatis coba **sync ke Supabase** (upload Storage + upsert rows)  
+4. Cek Table Editor: `characters`, Storage: `character-sources` / `character-assets`
 
-Di Character Wizard, setelah edit draft, tombol **Sync to Supabase** (jika sudah login) akan:
+Tanpa env/login → tetap localStorage saja.
 
-- upsert `characters`
-- upload source/clean/parts/expressions ke Storage
-- upsert angles, parts, expressions, poses
+## 5. Security
 
-Tanpa login atau tanpa env → tetap localStorage (fallback).
+- Jangan pakai `service_role` di frontend  
+- Jangan commit `.env.local`
 
-## 6. Jangan commit
+## 6. Jika sync error
 
-`.env.local` sudah di `.gitignore`. Jangan upload `service_role` key ke frontend.
+- Belum login  
+- Tabel/enum belum match migration  
+- Storage policy path harus `{user_id}/...`  
+- Cek browser console
