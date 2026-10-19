@@ -30,3 +30,11 @@ Phase 5 = PARTIAL (static editor foundations); Phase 6 = PARTIAL (basic recovery
 None are DONE under roadmap criteria.
 ## Next verified integration milestone
 Agree and implement shared Character Asset/rig adapter, project and scene version contracts, Supabase migration/RLS and integration tests with Grok module. Then implement proper page compositor + blend/export and final E2E/visual checks.
+
+## Responsive canvas increment (2026-10-19)
+- Added ResizeObserver-based stage fit to available canvas viewport plus manual +/- zoom and Fit reset.
+- Drag placement now maps pointer CSS pixels through the current canvas scaling to 960x540 design coordinates.
+- PNG export uses inverse viewport scale pixel ratio to maintain nominal 1920x1080 output irrespective of editor zoom.
+- CSS updates make asset search, bubble editor and responsive canvas controls usable.
+- GitHub Actions CI PASS: https://github.com/yusridza-hash/modular-2d-character-app/actions/runs/39225428550 (build, unit, Chromium browser smoke, FastAPI API tests).
+- Still pending: true pan/scroll navigation at high zoom, transform handles, production high-fidelity masks, full page layouts, Supabase migrations and integration with Grok Character Engine. Do not mark Phase 0/5/6 DONE.
