@@ -12,3 +12,6 @@ Video, animation timeline, AI autonomous changes without validation, automatic i
 Character master immutable per asset version; each dropped object is a scene instance with instance-local pose/expression/transform/blend overrides. Existing published panels pin referenced versions. Scene edits must never silently mutate library master. All effects controllable and disableable. Original source preserved.
 ## End-to-end acceptance
 Drag the same Arlo master into 3 panels; pose and expression per instance differ; swap expression in one panel does not modify other panels; reopen project and reproduce identical previews/exports from pinned versions; exported PNG represents the final canvas composition, not raw unblended sprites.
+
+## Four-layer architecture and new approved workflows
+Asset Creation (Wizard/Character Studio) → Unified Smart Asset Registry (versioned searchable published items) → Comic Production (panel scene independent character instances, pose/face swapping and background layering) → Static Publishing (PNG baseline; optional WebP/PDF). This is not a video product. The Page Layout Editor arranges panel content references independently of page rectangles. Character Preparation Wizard is mandatory before normal reusable rigged character publication. See corresponding design/architecture documents.
