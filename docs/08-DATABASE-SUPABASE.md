@@ -385,3 +385,15 @@ Wajib:
 ---
 
 *Dokumen ini mengikat Phase 0+ jika Supabase dipilih sebagai persistence. Build Rules tetap berlaku; file aset tetap di Storage, bukan di bytea.*
+
+
+---
+## 11. REQUIRED SCHEMA MIGRATION BEFORE BUILD (2026-10-19)
+Legacy SQL in Sections 1–10 is a starting scaffold, **not a final production schema** for the updated static comic workflow. Do not deploy as complete without a versioned migration resolving the following:
+1. Add projects, pages, panels, immutable asset registry/version/dependency tables and scene_revisions; pin panel instance references to exact asset/rig/face/pose versions, never only mutable master IDs.
+2. Character expressions currently single file per name: expand to expression pack versions, compatible view angles, full-face or modular eye/brow/mouth component references and preset compositions; preserve backward compatibility.
+3. Scene JSON now requires separate object instances with independent pose, facial preset, transform and blend settings. Include foreground mask/props, background blending metadata, layer order and panel/page position.
+4. Store original, cleaned, masks, rendered sprites and processing model/parameter provenance persistently in private versioned Storage. Older example storage paths without version IDs must be superseded for published revisions.
+5. Avoid cascade deletion of published referenced assets; enforce integrity, authorizations and soft-delete/dependency warnings. Supabase RLS for all new project-scoped tables, Storage policies, worker authorization, migrations and restore tests mandatory.
+6. Do not claim an already-created table, migration or bucket simply because SQL is written here.
+**Canonical design links:** [assets](architecture/ASSET-VERSIONING.md), [static scene](architecture/SCENE-CANVAS-BLENDING.md), [rig and face](architecture/CHARACTER-RIG-AND-EXPRESSION.md). Migration implementation is outstanding.
