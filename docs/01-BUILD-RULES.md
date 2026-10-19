@@ -66,3 +66,7 @@ Aturan ini mengikat semua phase. Melanggar = utang teknis yang harus dibayar nan
 - RLS: user hanya akses data sendiri (`owner_id = auth.uid()`).
 - Path Storage mengikuti konvensi di `docs/08-DATABASE-SUPABASE.md`.
 - Migration wajib versioned; jangan ubah enum production tanpa migration data.
+
+
+## 12. Current Product Lock (2026-10-19)
+This is a static COMIC/IMAGE-only editor. No video, animation timeline, FPS, motion clips, sound, video encoding, or related UI. Required everyday workflow: always-accessible searchable asset Library + central Comic Canvas + contextual right Inspector + compact page/panel strip. Character drop creates independent instance, movable and manually posable; prebuilt face-expression sprites swap immediately without altering the body. Layering and blend preview auto-run on placement, with high-fidelity same-document PNG export. Library master remains immutable. Current detailed rules: docs/BUILD-SPEC-INDEX.md and linked specifications. Older examples are noncanonical if contradictory.
