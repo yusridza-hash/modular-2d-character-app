@@ -21,3 +21,6 @@ User bisa buat project karakter dan menyimpan beberapa angle.
 
 ## Static Comic Product Gate (2026-10-19)
 The purpose of this work is reusable, versioned character sprites for drag-and-drop comic image panels. Preserve original images, processed masks, source offsets, view compatibility and immutable versions. Pose/edit manual correction and prebuilt facial expression swaps must remain supported downstream. No video, animation or timeline dependency. See docs/BUILD-SPEC-INDEX.md.
+
+## Wizard requirement
+Import stage of Character Preparation Wizard: draft/resume, input validation, versioned original source, view tags and Library visibility status. Follow docs/design/CHARACTER-PREPARATION-WIZARD.md.
