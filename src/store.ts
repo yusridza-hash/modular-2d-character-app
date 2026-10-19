@@ -8,7 +8,7 @@ const demoAssets:Asset[]=[
 {id:'tree',name:'Tree (sample)',kind:'prop'}
 ];
 type State={assets:Asset[];panels:ComicPanel[];active:string;selected?:string;history:ComicPanel[][];future:ComicPanel[][];
-addAsset:(asset:Asset)=>void;addPanel:()=>void;duplicatePanel:()=>void;duplicateSelected:()=>void;addBubble:()=>void;updateBubble:(id:string,text:string)=>void;selectPanel:(id:string)=>void;select:(id?:string)=>void;
+addAsset:(asset:Asset)=>void;addPanel:()=>void;duplicatePanel:()=>void;duplicateSelected:()=>void;addBubble:()=>void;updateBubble:(id:string,text:string)=>void;moveBubble:(id:string,x:number,y:number)=>void;selectPanel:(id:string)=>void;select:(id?:string)=>void;
 drop:(id:string,x:number,y:number)=>void;update:(id:string,patch:Partial<Instance>)=>void;remove:()=>void;setBackground:(url:string)=>void;undo:()=>void;redo:()=>void;load:(panels:ComicPanel[])=>void;loadProject:(assets:Asset[],panels:ComicPanel[])=>void;};
 const start:ComicPanel={id:'panel-1',name:'Panel 01',objects:[]};
 export const useStudio=create<State>((set)=>({
@@ -19,6 +19,7 @@ duplicatePanel:()=>set(s=>{const origin=currentPanel(s);const copy:ComicPanel={.
 duplicateSelected:()=>set(s=>{const existing=selectedInstance(s);if(!existing)return s;const copy:Instance={...structuredClone(existing),id:newId(),x:existing.x+24,y:existing.y+24,layer:existing.layer+1};return {...saveHistory(s),panels:s.panels.map(p=>p.id===s.active?{...p,objects:[...p.objects,copy]}:p),selected:copy.id}}),
 addBubble:()=>set(s=>({...saveHistory(s),panels:s.panels.map(p=>p.id===s.active?{...p,bubbles:[...(p.bubbles||[]),{id:newId(),x:460,y:95,text:'New dialogue...',width:200}]}:p)})),
 updateBubble:(id,text)=>set(s=>({...saveHistory(s),panels:s.panels.map(p=>p.id===s.active?{...p,bubbles:(p.bubbles||[]).map(b=>b.id===id?{...b,text}:b)}:p)})),
+moveBubble:(id,x,y)=>set(s=>({...saveHistory(s),panels:s.panels.map(p=>p.id===s.active?{...p,bubbles:(p.bubbles||[]).map(b=>b.id===id?{...b,x,y}:b)}:p)})),
 selectPanel:id=>set({active:id,selected:undefined}),select:id=>set({selected:id}),
 drop:(id,x,y)=>set(s=>{const a=s.assets.find(a=>a.id===id);if(!a)return s;if(a.kind==='background')return s;const object:Instance={id:newId(),assetId:id,x,y,scale:1,rotation:0,expression:'neutral',pose:{...DEFAULT_POSE},layer:s.panels.find(p=>p.id===s.active)?.objects.length||0,tint:0,shadow:true};return {...saveHistory(s),panels:s.panels.map(p=>p.id===s.active?{...p,objects:[...p.objects,object]}:p),selected:object.id}}),
 update:(id,patch)=>set(s=>({...saveHistory(s),panels:s.panels.map(p=>p.id===s.active?{...p,objects:p.objects.map(o=>o.id===id?{...o,...patch}:o)}:p)})),
