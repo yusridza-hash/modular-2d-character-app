@@ -1,5 +1,10 @@
 # Phase 1 — Character Ingestion
 
+## Status (2026-10-19)
+
+**Partial MVP — NOT complete.**  
+See [PROGRESS.md](./PROGRESS.md).
+
 ## Tujuan
 
 User bisa buat project karakter dan menyimpan beberapa angle.
@@ -13,14 +18,17 @@ User bisa buat project karakter dan menyimpan beberapa angle.
 
 ## Definition of Done
 
-- [ ] Buat / rename / hapus character project
-- [ ] Upload minimal 2 angle, tag front & side
-- [ ] Data tertulis sesuai `docs/07-DATA-SCHEMA.md`
-- [ ] Tidak ada segmentation di phase ini (hanya ingestion)
+- [x] Buat / rename / hapus character draft (local engine)
+- [x] Upload minimal 2 angle possible (UI supports 6 views)
+- [ ] Data tertulis sesuai schema production + Supabase versioned source
+- [x] Tidak ada segmentation di phase ini (hanya ingestion) — OK in wizard stage Import
+- [ ] Ownership / resolution validation formal
+- [ ] Acceptance test recorded
 
+## Static Comic Product Gate
 
-## Static Comic Product Gate (2026-10-19)
-The purpose of this work is reusable, versioned character sprites for drag-and-drop comic image panels. Preserve original images, processed masks, source offsets, view compatibility and immutable versions. Pose/edit manual correction and prebuilt facial expression swaps must remain supported downstream. No video, animation or timeline dependency. See docs/BUILD-SPEC-INDEX.md.
+Reusable versioned character sprites for comic panels. Preserve originals. No video/animation.
 
 ## Wizard requirement
-Import stage of Character Preparation Wizard: draft/resume, input validation, versioned original source, view tags and Library visibility status. Follow docs/design/CHARACTER-PREPARATION-WIZARD.md.
+
+Import stage of Character Preparation Wizard — implemented in `src/wizard/CharacterWizard.tsx` (draft/resume local).

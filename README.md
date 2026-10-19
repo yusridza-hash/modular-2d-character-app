@@ -1,30 +1,32 @@
 # Modular 2D Studio — Static Comic & Image Composer
+
 **Current approved direction: Comic/Image ONLY. No video, animation, timeline, FPS, audio or motion clips.**
 
-This application transforms consistent character images into reusable 2D sprite rigs with prebuilt facial-expression sprites. Users drag characters/props/backgrounds from a permanently accessible library into a comic canvas, manually pose bodies, swap facial expressions instantly, compose page/panel layouts, preview automatic scene blending, then export high-quality static images.
+This application transforms consistent character images into reusable 2D sprite rigs with prebuilt facial-expression sprites. Users drag characters/props/backgrounds from a library into a comic canvas, pose bodies, swap expressions, compose panels, then export static images.
+
+## Progress (honest)
+
+See **[roadmap/PROGRESS.md](roadmap/PROGRESS.md)**.
+
+- Phase **1–4 Character Engine:** **Partial MVP** in code (wizard + client pipelines) — **not DoD-complete**.
+- Phase **5+:** early studio prototype only.
+
+Do not treat documentation or partial features as finished phases.
 
 ## REQUIRED reading order (canonical)
+
 1. [Build Specification Index](docs/BUILD-SPEC-INDEX.md)
-2. [Product scope](docs/product/PRODUCT-SPEC.md)
-3. [Comic editor UI](docs/design/UI-UX-SPEC.md)
-4. [Rig and expressions](docs/architecture/CHARACTER-RIG-AND-EXPRESSION.md)
-5. [Scene canvas, layering and auto blend](docs/architecture/SCENE-CANVAS-BLENDING.md)
-6. [Asset revision rules](docs/architecture/ASSET-VERSIONING.md)
-7. [Data schema](docs/07-DATA-SCHEMA.md) and [Supabase contract](docs/08-DATABASE-SUPABASE.md)
-8. [Quality](docs/quality/TEST-STRATEGY.md), [deployment](docs/operations/DEPLOYMENT-AND-RECOVERY.md), and [Roadmap](roadmap/ROADMAP.md)
+2. [Progress tracker](roadmap/PROGRESS.md)
+3. [Product scope](docs/product/PRODUCT-SPEC.md)
+4. [Phase 1–4 status](docs/quality/PHASE-1-4-STATUS.md)
+5. [Data schema](docs/07-DATA-SCHEMA.md) / [Supabase](docs/08-DATABASE-SUPABASE.md)
+6. [Roadmap](roadmap/ROADMAP.md)
 
-## Implementation status
-- [x] Initial planning documents and current comic-specific design baseline committed
-- [ ] Phase 0 — validated architecture and environment
-- [ ] Phase 1 — import / ingestion
-- [ ] Phase 2 — sprite extraction / correction
-- [ ] Phase 3 — rig and posing
-- [ ] Phase 4 — expression packs
-- [ ] Phase 5 — static comic canvas and blending
-- [ ] Phase 6 — UX and reliability polish
-- [ ] Phase 7 — optional **static-image** advanced tools
+## Prototype
 
-**Do not mark code/build/tests complete based solely on documentation.** Engineering details, migration and UI wireframe must be validated in Phase 0.
+```bash
+npm install
+npm run dev
+```
 
-## Prototype source (Phase 0 in progress)
-Source code now exists under `src/` with React/Vite + Konva + Zustand. Run `npm install`, `npm run dev` to inspect locally, and `npm run build` before calling it tested. **Build/runtime verification not yet completed.** See [honest feature and test status](docs/quality/PROTOTYPE-STATUS.md). Uploaded images use session-only blob URLs and localStorage layout save is NOT production persistence; do not rely on it for important work.
+Use **Character Wizard** for Phase 1–4 MVP flow. Uploaded images may use data URLs; localStorage is not production persistence.

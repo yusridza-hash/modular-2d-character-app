@@ -1,16 +1,18 @@
 # Phase 4 — Expression & Variant
 
-## Tujuan
+## Status (2026-10-19)
 
-Ganti ekspresi tanpa merusak sisa tubuh.
+**Partial MVP — NOT complete.**  
+See [PROGRESS.md](./PROGRESS.md).
 
 ## Definition of Done
 
-- [ ] Minimal 5 ekspresi per karakter contoh
-- [ ] One-click apply ekspresi di composer
-- [ ] Upload ekspresi baru
-- [ ] (Opsional) 1 outfit layer terpisah
+- [x] Upload expression images into pack
+- [ ] Guaranteed ≥5 functional presets per sample character
+- [x] Publish can attach expression map to Library asset
+- [ ] View compatibility enforcement
+- [ ] Modular eye/brow/mouth components
+- [ ] Panel instance swap test evidence
+- [ ] Acceptance test recorded
 
-
-## Comic-only build alignment (2026-10-19)
-Refer to docs/BUILD-SPEC-INDEX.md and canonical UI/rig/blending/versioning/testing contracts. This phase must not add timeline, animation, sound, FPS or video. Character library drag-drop is scene instance based, facial presets are swappable, and scene preview/final export must follow same compositing specification. DoD needs demonstrated tests; documentation alone does not complete phase.
+No timeline/animation/video.
