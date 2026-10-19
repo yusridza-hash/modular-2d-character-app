@@ -9,7 +9,7 @@ const demoAssets:Asset[]=[
 ];
 type State={assets:Asset[];panels:ComicPanel[];active:string;selected?:string;history:ComicPanel[][];future:ComicPanel[][];
 addAsset:(asset:Asset)=>void;addPanel:()=>void;selectPanel:(id:string)=>void;select:(id?:string)=>void;
-drop:(id:string,x:number,y:number)=>void;update:(id:string,patch:Partial<Instance>)=>void;remove:()=>void;setBackground:(url:string)=>void;undo:()=>void;redo:()=>void;load:(panels:ComicPanel[])=>void;};
+drop:(id:string,x:number,y:number)=>void;update:(id:string,patch:Partial<Instance>)=>void;remove:()=>void;setBackground:(url:string)=>void;undo:()=>void;redo:()=>void;load:(panels:ComicPanel[])=>void;loadProject:(assets:Asset[],panels:ComicPanel[])=>void;};
 const start:ComicPanel={id:'panel-1',name:'Panel 01',objects:[]};
 export const useStudio=create<State>((set,get)=>({
 assets:demoAssets,panels:[start],active:start.id,selected:undefined,history:[],future:[],
@@ -22,7 +22,8 @@ remove:()=>set(s=>({...saveHistory(s),panels:s.panels.map(p=>p.id===s.active?{..
 setBackground:url=>set(s=>({...saveHistory(s),panels:s.panels.map(p=>p.id===s.active?{...p,background:url}:p)})),
 undo:()=>set(s=>s.history.length?{panels:s.history[s.history.length-1],history:s.history.slice(0,-1),future:[s.panels,...s.future],selected:undefined}:s),
 redo:()=>set(s=>s.future.length?{panels:s.future[0],future:s.future.slice(1),history:[...s.history,s.panels],selected:undefined}:s),
-load:panels=>set({panels,active:panels[0].id,selected:undefined,history:[],future:[]})
+load:panels=>set({panels,active:panels[0].id,selected:undefined,history:[],future:[]}),
+loadProject:(assets,panels)=>set({assets,panels,active:panels[0].id,selected:undefined,history:[],future:[]})
 }));
 function saveHistory(s:State){return {history:[...s.history.slice(-29),structuredClone(s.panels)],future:[] as ComicPanel[][]};}
 export function currentPanel(state:State){return state.panels.find(p=>p.id===state.active)||state.panels[0];}
