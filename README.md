@@ -25,3 +25,6 @@ This application transforms consistent character images into reusable 2D sprite 
 - [ ] Phase 7 — optional **static-image** advanced tools
 
 **Do not mark code/build/tests complete based solely on documentation.** Engineering details, migration and UI wireframe must be validated in Phase 0.
+
+## Prototype source (Phase 0 in progress)
+Source code now exists under `src/` with React/Vite + Konva + Zustand. Run `npm install`, `npm run dev` to inspect locally, and `npm run build` before calling it tested. **Build/runtime verification not yet completed.** See [honest feature and test status](docs/quality/PROTOTYPE-STATUS.md). Uploaded images use session-only blob URLs and localStorage layout save is NOT production persistence; do not rely on it for important work.
