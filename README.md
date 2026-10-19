@@ -1,43 +1,27 @@
-# Modular 2D Character / Sprite Composer App
+# Modular 2D Studio — Static Comic & Image Composer
+**Current approved direction: Comic/Image ONLY. No video, animation, timeline, FPS, audio or motion clips.**
 
-Aplikasi untuk mengubah karakter AI-generated (multi-angle) menjadi **sprite modular 2D** yang bisa disusun, dipose secara natural, diganti ekspresi, di-flip, digabung dengan background, dan dipakai untuk scene/comic panel yang konsisten.
+This application transforms consistent character images into reusable 2D sprite rigs with prebuilt facial-expression sprites. Users drag characters/props/backgrounds from a permanently accessible library into a comic canvas, manually pose bodies, swap facial expressions instantly, compose page/panel layouts, preview automatic scene blending, then export high-quality static images.
 
-## Struktur Dokumentasi (Baca Sesuai Urutan)
+## REQUIRED reading order (canonical)
+1. [Build Specification Index](docs/BUILD-SPEC-INDEX.md)
+2. [Product scope](docs/product/PRODUCT-SPEC.md)
+3. [Comic editor UI](docs/design/UI-UX-SPEC.md)
+4. [Rig and expressions](docs/architecture/CHARACTER-RIG-AND-EXPRESSION.md)
+5. [Scene canvas, layering and auto blend](docs/architecture/SCENE-CANVAS-BLENDING.md)
+6. [Asset revision rules](docs/architecture/ASSET-VERSIONING.md)
+7. [Data schema](docs/07-DATA-SCHEMA.md) and [Supabase contract](docs/08-DATABASE-SUPABASE.md)
+8. [Quality](docs/quality/TEST-STRATEGY.md), [deployment](docs/operations/DEPLOYMENT-AND-RECOVERY.md), and [Roadmap](roadmap/ROADMAP.md)
 
-```
-docs/
-  00-OVERVIEW.md          ← Mulai dari sini
-  01-BUILD-RULES.md       ← Aturan wajib saat build (sangat penting)
-  02-TECH-AND-OSS.md      ← Tech stack + integrasi open source
-  03-SPRITE-PIPELINE.md   ← Cara gambar → sprite modular
-  04-POSING-SYSTEM.md     ← Gerakan manual agar tidak aneh
-  05-BLENDING-AND-SCALE.md← Blending ke background + ukuran tidak kaku
-  06-ASSETS-AND-SCENE.md  ← Aset tambahan, background, scene composer
-  07-DATA-SCHEMA.md       ← Format data (JSON) yang dipakai
+## Implementation status
+- [x] Initial planning documents and current comic-specific design baseline committed
+- [ ] Phase 0 — validated architecture and environment
+- [ ] Phase 1 — import / ingestion
+- [ ] Phase 2 — sprite extraction / correction
+- [ ] Phase 3 — rig and posing
+- [ ] Phase 4 — expression packs
+- [ ] Phase 5 — static comic canvas and blending
+- [ ] Phase 6 — UX and reliability polish
+- [ ] Phase 7 — optional **static-image** advanced tools
 
-roadmap/
-  ROADMAP.md              ← Arahan utama + lokasi semua dokumen
-  phase-0.md ... phase-7.md ← Kriteria detail & definisi selesai tiap phase
-```
-
-## Status Saat Ini
-
-- [x] Perencanaan & dokumentasi lengkap
-- [ ] Phase 0 – Setup
-- [ ] Phase 1 – Character Ingestion
-- [ ] Phase 2 – Sprite Extraction
-- [ ] Phase 3 – Composer + Posing
-- [ ] Phase 4 – Expression
-- [ ] Phase 5 – Scene
-- [ ] Phase 6 – Polish
-- [ ] Phase 7 – Advanced
-
-## Prinsip Utama
-
-1. **Aset fixed > generate ulang** — konsistensi dari sprite modular, bukan dari prompt.
-2. **Semi-otomatis** — AI bantu pecah sprite, user koreksi ringan.
-3. **Posing natural** — hierarchy + pivot + constraint.
-4. **Blending & skala** — karakter menyatu dengan background, ukuran proporsional.
-5. **Open source first** — semua model & library yang dipilih harus open source / permissif.
-
-Mulai baca: [docs/00-OVERVIEW.md](docs/00-OVERVIEW.md) lalu [roadmap/ROADMAP.md](roadmap/ROADMAP.md).
+**Do not mark code/build/tests complete based solely on documentation.** Engineering details, migration and UI wireframe must be validated in Phase 0.
