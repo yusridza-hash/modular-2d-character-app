@@ -19,6 +19,10 @@ jobs:
 
       - name: Unit tests
         run: npm test
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: Browser smoke tests
+        run: npm run test:e2e
 
   api:
     runs-on: ubuntu-latest
