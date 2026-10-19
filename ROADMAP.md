@@ -1,155 +1,135 @@
-# Modular 2D Character / Sprite Composer App
+# Roadmap Detail — Modular 2D Character / Sprite Composer
 
 **Tujuan akhir:**  
-User masukkan karakter multi-angle → App otomatis (semi-otomatis) pecah jadi sprite modular → User bisa menyusun, mempose, ganti ekspresi, flip, dan pakai background berulang untuk membuat scene/comic panel.
+User masukkan karakter multi-angle → App semi-otomatis pecah jadi sprite modular → User bisa menyusun, mempose, ganti ekspresi, flip, dan pakai background berulang untuk membuat scene/comic panel yang konsisten.
+
+Dokumen terkait:
+- [FEATURES.md](./FEATURES.md) — Daftar fitur lengkap
+- [TECH_STACK.md](./TECH_STACK.md) — Teknologi & arsitektur
+- [SPRITE_PIPELINE.md](./SPRITE_PIPELINE.md) — Cara sprite dibuat dari gambar
 
 ---
 
 ## Phase 0: Persiapan & Fondasi (1–2 minggu)
-**Tujuan:** Menyiapkan pondasi teknis dan keputusan arsitektur.
+**Target jelas:**
+- Repo & struktur project siap
+- Tech stack final dipilih
+- JSON schema Character Project & Scene Project selesai
+- Environment development jalan (frontend + FastAPI dummy)
+- Riset model: BiRefNet/RemBG, Human Parsing, SAM2 sudah diuji di local/Colab
 
-### Yang harus dilengkapi:
-- Tentukan tech stack (contoh rekomendasi):
-  - Frontend: React / Next.js + Canvas (Fabric.js atau Konva.js)
-  - Backend: Python (FastAPI) + ComfyUI / diffusers sebagai engine AI
-  - Storage: Lokal dulu (folder system), nanti bisa Supabase/S3
-- Buat struktur folder project yang rapi
-- Tentukan format data karakter (JSON schema)
-- Riset & uji model:
-  - Segment Anything 2 (SAM2)
-  - Human Parsing model
-  - Face Parsing
-  - RemBG / BiRefNet
-- Buat dokumen spesifikasi fitur MVP
-
-**Deliverable:**  
-Project setup + JSON schema karakter + daftar model yang akan dipakai.
+**Deliverable:**
+- Folder struktur project
+- `schema/character.json` & `schema/scene.json`
+- Script uji coba background removal + parsing sederhana
 
 ---
 
 ## Phase 1: Character Ingestion & Multi-View Management (2–3 minggu)
-**Tujuan:** User bisa memasukkan dan mengelola gambar karakter dari berbagai sudut.
+**Target jelas:**
+- User bisa buat Character Project baru
+- Upload 2–6 gambar angle
+- Tagging sudut (manual dulu)
+- Preview grid semua angle
+- Data tersimpan rapi (local storage / folder)
 
-### Fitur yang harus ada:
-- Upload multiple images (depan, samping kiri, samping kanan, belakang, 3/4)
-- Tagging sudut otomatis / manual (user pilih sudut mana)
-- Preview semua angle dalam satu halaman
-- Simpan sebagai “Character Project”
-- Basic metadata: nama karakter, catatan, tanggal
+**Fitur wajib selesai:**
+- CRUD Character Project
+- Upload & preview multi-image
+- Basic metadata
 
-**Deliverable:**  
-Bisa buat project karakter baru dan menyimpan beberapa angle dengan rapi.
+**Belum perlu:** segmentation
 
 ---
 
-## Phase 2: Auto Segmentation & Sprite Breaking (3–5 minggu) — **Inti Aplikasi**
-**Tujuan:** App bisa memecah gambar karakter menjadi bagian-bagian sprite.
+## Phase 2: Auto Segmentation & Sprite Breaking (3–5 minggu) — **Paling Kritis**
+**Target jelas:**
+- Dari 1 gambar front → berhasil keluar beberapa sprite terpisah (head, body, arms, legs) + metadata.json
+- Ada UI koreksi mask (brush add/subtract)
+- Pivot point bisa diatur
+- Hasil bisa di-preview sebagai karakter yang dirakit ulang sederhana
 
-### Fitur yang harus dilengkapi:
-- Deteksi dan buang background
-- Human Parsing (kepala, rambut, badan, lengan kiri/kanan, kaki kiri/kanan)
-- Face Parsing (opsional di fase ini)
-- Generate mask per bagian
-- Potong menjadi sprite terpisah (PNG transparent)
-- Preview hasil potongan
-- Tools koreksi manual:
-  - Brush untuk perbaiki mask
-  - Hapus / gabung bagian
-  - Sesuaikan posisi & skala
-- Simpan hasil sebagai set sprite modular per angle
+**Yang harus jalan:**
+1. Background removal
+2. Human parsing → mask per bagian
+3. Crop + export PNG transparent
+4. Tools koreksi manual dasar
+5. Simpan struktur folder sprite + metadata
 
-**Deliverable:**  
-Dari 1 set multi-angle → menghasilkan library sprite terpisah yang sudah rapi.
+**Sukses criteria:**
+- 1 karakter front view bisa dipecah dan dirakit ulang dengan kesalahan minimal setelah koreksi manual ringan.
 
 ---
 
 ## Phase 3: Modular Character Composer (3–4 minggu)
-**Tujuan:** User bisa menyusun dan memanipulasi karakter dari sprite modular.
+**Target jelas:**
+- Canvas editor yang bisa load hasil Phase 2
+- Drag, rotate, scale, flip setiap bagian
+- Layer order bisa diubah
+- Pivot point berfungsi (bagian berputar di titik yang benar)
+- Bisa simpan & load Pose
+- Switch Front ↔ Side (kalau side sudah ada)
 
-### Fitur wajib:
-- Layer system (urutan: rambut belakang → badan → pakaian → lengan → rambut depan → kepala)
-- Drag & drop bagian
-- Rotate, scale, flip horizontal
-- Pivot point per bagian (supaya gerakan natural)
-- Simpan “Pose”
-- Ganti ekspresi (kalau sudah ada library ekspresi)
-- Switch view (Front / Side)
-- Zoom & pan canvas
-
-**Deliverable:**  
-Bisa merakit karakter dari bagian-bagian dan mengatur pose dasar.
+**Sukses criteria:**
+- User bisa merakit karakter dan membuat 3–5 pose berbeda dengan nyaman.
 
 ---
 
 ## Phase 4: Expression & Variant System (2–3 minggu)
-**Tujuan:** Membuat karakter lebih hidup dengan banyak ekspresi dan variasi.
+**Target jelas:**
+- Library ekspresi per karakter
+- Ganti ekspresi dengan 1 klik
+- Support upload ekspresi baru
+- (Opsional) Outfit layer sederhana
 
-### Fitur:
-- Library ekspresi (mata + mulut, atau full face)
-- Upload / generate ekspresi tambahan
-- One-click ganti ekspresi
-- Sistem Outfit / Clothing layer (bisa diganti)
-- Warna rambut / aksesoris (opsional tint)
-- Simpan “Character State” (pose + ekspresi + outfit)
-
-**Deliverable:**  
-Karakter punya banyak ekspresi dan bisa diganti dengan mudah.
+**Sukses criteria:**
+- Karakter yang sama bisa menampilkan minimal 5 ekspresi berbeda tanpa merusak bagian lain.
 
 ---
 
-## Phase 5: Scene Composer & Background System (2–3 minggu)
-**Tujuan:** Menyusun panel comic / scene lengkap.
+## Phase 5: Scene Composer & Background (2–3 minggu)
+**Target jelas:**
+- Upload & kelola background
+- Taruh 1–lebih karakter modular ke scene
+- Atur posisi, skala, depth
+- Tambah text bubble sederhana
+- Export PNG final
 
-### Fitur:
-- Library Background (upload + tagging)
-- Taruh multiple karakter dalam satu scene
-- Atur depth / layer antar karakter
-- Tambah text bubble / dialog
-- Grid / guide untuk panel comic
-- Export hasil (PNG, PSD layer, atau PDF panel)
-- Simpan Scene Project
-
-**Deliverable:**  
-Bisa membuat 1 panel comic lengkap dari karakter modular + background.
+**Sukses criteria:**
+- Bisa membuat 1 panel comic lengkap (background + 1–2 karakter + bubble) dan di-export.
 
 ---
 
-## Phase 6: Polish, Automation & Quality of Life (2–4 minggu)
-**Tujuan:** Membuat aplikasi nyaman dipakai jangka panjang.
-
-### Fitur tambahan:
-- Batch process (banyak karakter sekaligus)
-- Auto-suggest pose dari OpenPose
-- Consistency checker antar angle
-- Undo / Redo yang kuat
-- Shortcut keyboard
-- Template pose & ekspresi
-- Export sprite sheet siap pakai
-- Dark mode + UI yang rapi
+## Phase 6: Polish & QoL (2–4 minggu)
+- Undo/Redo solid
+- Keyboard shortcuts
+- Batch process
+- Export sprite sheet
+- Consistency warning antar angle
+- UI/UX polish + dark mode
 
 ---
 
-## Phase 7: Advanced (Opsional - Jangka Panjang)
-- Semi-otomatis generate bagian yang kurang dari angle lain
-- Simple animation (idle, blink, mouth movement)
-- Integrasi langsung dengan ComfyUI / AI generate ekspresi baru
-- Collaborative editing
-- Marketplace aset (opsional)
+## Phase 7: Advanced (Opsional)
+- Auto generate angle yang kurang
+- Simple animation (blink, idle)
+- Integrasi ComfyUI untuk generate ekspresi baru
+- Collaborative / cloud sync
 
 ---
 
-## Ringkasan Prioritas
+## Ringkasan Prioritas & Estimasi
 
-| Phase | Fokus Utama                     | Estimasi | Prioritas |
-|-------|---------------------------------|----------|---------|
-| 0     | Setup & Keputusan               | 1-2 mg   | Tinggi  |
-| 1     | Upload & Kelola Multi-Angle     | 2-3 mg   | Tinggi  |
-| 2     | Pecah jadi Sprite (Segmentation)| 3-5 mg   | Sangat Tinggi |
-| 3     | Composer Modular                | 3-4 mg   | Sangat Tinggi |
-| 4     | Ekspresi & Variant              | 2-3 mg   | Tinggi  |
-| 5     | Scene + Background              | 2-3 mg   | Tinggi  |
-| 6     | Polish                          | 2-4 mg   | Sedang  |
+| Phase | Fokus Utama                      | Estimasi | Prioritas      | Sukses Criteria Utama                      |
+|-------|----------------------------------|----------|----------------|--------------------------------------------|
+| 0     | Setup + Schema + Riset Model     | 1-2 mg   | Tinggi         | Environment & schema siap                  |
+| 1     | Upload Multi-Angle               | 2-3 mg   | Tinggi         | Bisa kelola project + gambar angle         |
+| 2     | Segmentation → Sprite            | 3-5 mg   | **Sangat Tinggi** | 1 gambar → sprite modular + koreksi mask |
+| 3     | Composer Modular                 | 3-4 mg   | **Sangat Tinggi** | Bisa pose karakter dengan nyaman         |
+| 4     | Ekspresi                         | 2-3 mg   | Tinggi         | 5+ ekspresi per karakter                   |
+| 5     | Scene + Background               | 2-3 mg   | Tinggi         | 1 panel comic bisa di-export               |
+| 6     | Polish                           | 2-4 mg   | Sedang         | App terasa nyaman dipakai                  |
 
 ---
 
-*Dokumen ini dibuat berdasarkan diskusi perencanaan aplikasi Modular 2D Character / Sprite Composer.*
+*Update terakhir: penyusunan fitur, tech stack, dan pipeline sprite agar target tiap phase lebih jelas.*
