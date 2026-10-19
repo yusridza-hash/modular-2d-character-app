@@ -397,3 +397,6 @@ Legacy SQL in Sections 1–10 is a starting scaffold, **not a final production s
 5. Avoid cascade deletion of published referenced assets; enforce integrity, authorizations and soft-delete/dependency warnings. Supabase RLS for all new project-scoped tables, Storage policies, worker authorization, migrations and restore tests mandatory.
 6. Do not claim an already-created table, migration or bucket simply because SQL is written here.
 **Canonical design links:** [assets](architecture/ASSET-VERSIONING.md), [static scene](architecture/SCENE-CANVAS-BLENDING.md), [rig and face](architecture/CHARACTER-RIG-AND-EXPRESSION.md). Migration implementation is outstanding.
+
+## 12. Additional pre-build data model gate
+Character Master, Variant, immutable Asset Version, per-panel independent Instance, Page and Panel layout, Panel Snapshot, asset search tags/status, prop attachment anchors and optional foreground/background layers must all have explicit referential integrity and RLS. SQL above is legacy scaffold until migrations are written. See architecture/COMIC-PRODUCTION-CONTRACT.md and architecture/ASSET-BROWSER-AND-COMPOSITING.md. No production deployment without SQL and tests.
