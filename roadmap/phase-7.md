@@ -1,15 +1,10 @@
-# Phase 7 — Advanced (Opsional)
-
-## Kandidat
-
-- Inverse Kinematics (tangan/kaki)
-- Soft mesh di sendi
-- Auto-generate angle yang kurang
-- Animasi sederhana (blink, idle)
-- Integrasi ComfyUI untuk ekspresi baru
-
-## Definition of Done (jika dikerjakan)
-
-- [ ] Fitur advanced tidak merusak alur MVP
-- [ ] Didokumentasikan di docs terkait
-- [ ] Tetap patuh open-source-first untuk path inti
+# Phase 7 — Optional Advanced Static Comic Tools
+## Candidates (no video)
+- Optional IK assistance for manual static posing and constrained rig deformation/mesh repair.
+- Optional AI assistance in generating missing static view/face variants, subject to user review.
+- Story continuity indexing by chapter/page/panel and validated AI skill helpers.
+- Advanced comic page templates, multi-panel layout and scene-fit presets.
+## DoD
+- [ ] All changes are non-destructive, versioned and compatible with existing static comic assets.
+- [ ] AI outputs are previews and manually approvable.
+- [ ] No animation timeline, keyframes, FPS, motion clips, audio or video export.
