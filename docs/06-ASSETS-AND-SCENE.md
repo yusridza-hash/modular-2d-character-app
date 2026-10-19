@@ -32,3 +32,7 @@
 
 - PNG final (flatten).
 - Opsional: data scene JSON untuk edit ulang.
+
+
+## Updated static Comic Canvas requirement (2026-10-19)
+Replace basic scene placement expectation with persistent simultaneous Library/Canvas/Inspector workflow, thumbnail drag-and-drop independent instances, right-panel one-click expression preset swaps, double-click pose editing, page/panel thumbnail strip and background/foreground occlusion. Auto shadow/ground/tone/edge preview on placement and consistent quality PNG render at export. Manual control and rollback always available; asset version pinning prevents ripple edits. Full contract: docs/architecture/SCENE-CANVAS-BLENDING.md and docs/design/UI-UX-SPEC.md. No animation/video.
