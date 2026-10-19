@@ -2,14 +2,13 @@ import { create } from 'zustand';
 import {
   CharacterDraft,
   CharacterView,
-  ExpressionPreset,
   PosePreset,
   WizardStage,
-  WIZARD_STAGES,
   BodyPart,
   DEFAULT_PART_META,
 } from './types';
 import { removeBackgroundSimple, segmentHeuristic, clampRotation } from './pipeline';
+import { maybeSyncPublishedDraft } from '../lib/onPublishSync';
 
 const LS_KEY = 'modular-2d-character-drafts';
 
@@ -44,7 +43,6 @@ type EngineState = {
   activeDraftId?: string;
   busy: boolean;
   message: string;
-
   refresh: () => void;
   createDraft: (name: string) => string;
   selectDraft: (id: string) => void;
@@ -52,7 +50,6 @@ type EngineState = {
   renameDraft: (id: string, name: string) => void;
   setStage: (stage: WizardStage) => void;
   setActiveView: (view: CharacterView) => void;
-
   addAngleSource: (view: CharacterView, dataUrl: string, width: number, height: number) => void;
   runClean: (tolerance?: number) => Promise<void>;
   runSegment: () => Promise<void>;
@@ -64,8 +61,6 @@ type EngineState = {
   addExpression: (name: string, fileDataUrl: string) => void;
   removeExpression: (id: string) => void;
   publish: () => { libraryAssetId: string; draft: CharacterDraft } | null;
-
-  /** working pose while in rig step */
   workPose: Partial<Record<BodyPart, number>>;
   setWorkPosePart: (part: BodyPart, deg: number) => void;
   resetWorkPose: () => void;
@@ -100,9 +95,7 @@ export const useCharacterEngine = create<EngineState>((set, get) => ({
       referenceHeightPx: 1600,
       angles: {},
       activeView: 'front',
-      expressions: [
-        { id: uid(), name: 'neutral', fileDataUrl: '', isDefault: true },
-      ],
+      expressions: [{ id: uid(), name: 'neutral', fileDataUrl: '', isDefault: true }],
       poses: [],
       createdAt: now(),
       updatedAt: now(),
@@ -174,10 +167,7 @@ export const useCharacterEngine = create<EngineState>((set, get) => ({
     }
     set({ busy: true, message: 'Removing background…' });
     try {
-      const { cleanDataUrl, width, height } = await removeBackgroundSimple(
-        angle.sourceDataUrl,
-        tolerance,
-      );
+      const { cleanDataUrl, width, height } = await removeBackgroundSimple(angle.sourceDataUrl, tolerance);
       const next = patchActive(get().drafts, activeDraftId, (dr) => ({
         ...dr,
         angles: {
@@ -193,7 +183,7 @@ export const useCharacterEngine = create<EngineState>((set, get) => ({
         stage: 'clean',
       }));
       persist(next);
-      set({ drafts: next, busy: false, message: 'Background removal done (corner-sample MVP). Review & adjust tolerance if needed.' });
+      set({ drafts: next, busy: false, message: 'Background removal done (MVP).' });
     } catch (e) {
       set({ busy: false, message: 'Clean failed: ' + String(e) });
     }
@@ -209,7 +199,7 @@ export const useCharacterEngine = create<EngineState>((set, get) => ({
       set({ message: 'Clean or source image required' });
       return;
     }
-    set({ busy: true, message: 'Segmenting (heuristic bands)…' });
+    set({ busy: true, message: 'Segmenting…' });
     try {
       const parts = await segmentHeuristic(src);
       const next = patchActive(get().drafts, activeDraftId, (dr) => ({
@@ -225,11 +215,7 @@ export const useCharacterEngine = create<EngineState>((set, get) => ({
         stage: 'segment',
       }));
       persist(next);
-      set({
-        drafts: next,
-        busy: false,
-        message: `Segmented ${parts.length} parts. Repair pivots in next steps if needed.`,
-      });
+      set({ drafts: next, busy: false, message: `Segmented ${parts.length} parts.` });
     } catch (e) {
       set({ busy: false, message: 'Segment failed: ' + String(e) });
     }
@@ -283,8 +269,7 @@ export const useCharacterEngine = create<EngineState>((set, get) => ({
     const d = get().drafts.find((x) => x.id === get().activeDraftId);
     const angle = d?.angles[d.activeView];
     const meta = angle?.parts.find((p) => p.part === part)?.meta ?? DEFAULT_PART_META[part];
-    const clamped = clampRotation(part, deg, meta);
-    set({ workPose: { ...get().workPose, [part]: clamped } });
+    set({ workPose: { ...get().workPose, [part]: clampRotation(part, deg, meta) } });
   },
 
   resetWorkPose: () => set({ workPose: {} }),
@@ -347,10 +332,6 @@ export const useCharacterEngine = create<EngineState>((set, get) => ({
       set({ message: 'Publish blocked: front view needs segmented parts' });
       return null;
     }
-    const withExpr = d.expressions.filter((e) => e.fileDataUrl || e.name === 'neutral');
-    if (withExpr.length < 1) {
-      set({ message: 'Add at least neutral expression (can be empty placeholder)' });
-    }
     const libraryAssetId = d.libraryAssetId || uid();
     const next = patchActive(drafts, activeDraftId, (dr) => ({
       ...dr,
@@ -359,8 +340,10 @@ export const useCharacterEngine = create<EngineState>((set, get) => ({
       libraryAssetId,
     }));
     persist(next);
-    set({ drafts: next, message: 'Published to local Library (version pinned in draft).' });
-    return { libraryAssetId, draft: next.find((x) => x.id === activeDraftId)! };
+    const published = next.find((x) => x.id === activeDraftId)!;
+    set({ drafts: next, message: 'Published locally… syncing Supabase if configured' });
+    void maybeSyncPublishedDraft(published).then((msg) => set({ message: msg }));
+    return { libraryAssetId, draft: published };
   },
 }));
 
@@ -368,4 +351,4 @@ export function activeDraft(state: EngineState): CharacterDraft | undefined {
   return state.drafts.find((d) => d.id === state.activeDraftId);
 }
 
-export { WIZARD_STAGES };
+export { WIZARD_STAGES } from './types';
