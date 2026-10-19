@@ -49,3 +49,9 @@ FastAPI
 
 - Closed model tanpa bobot open sebagai satu-satunya jalan.
 - Engine berbayar (Spine Pro, Live2D berbayar) sebagai dependensi wajib — boleh jadi inspirasi, bukan requirement.
+
+
+## Comic-only build alignment (2026-10-19)
+Refer to docs/BUILD-SPEC-INDEX.md and canonical UI/rig/blending/versioning/testing contracts. This phase must not add timeline, animation, sound, FPS or video. Character library drag-drop is scene instance based, facial presets are swappable, and scene preview/final export must follow same compositing specification. DoD needs demonstrated tests; documentation alone does not complete phase.
+
+Proposed baseline: React + Vite + TypeScript; Konva/react-konva; FastAPI + Python CV worker; Supabase; no video/FFmpeg. Exact model weights licenses and versions require audit before adoption.
