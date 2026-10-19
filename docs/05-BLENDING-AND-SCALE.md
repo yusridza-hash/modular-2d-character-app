@@ -34,3 +34,9 @@ Masalah umum: karakter “tempel” di background, ukuran tidak masuk akal, kaki
 
 - Scene export tidak menampilkan karakter dengan kaki melayang tanpa shadow.
 - Skala antar panel bisa diulang dengan nilai `scale` yang sama.
+
+
+## Comic-only build alignment (2026-10-19)
+Refer to docs/BUILD-SPEC-INDEX.md and canonical UI/rig/blending/versioning/testing contracts. This phase must not add timeline, animation, sound, FPS or video. Character library drag-drop is scene instance based, facial presets are swappable, and scene preview/final export must follow same compositing specification. DoD needs demonstrated tests; documentation alone does not complete phase.
+
+Preview applies lightweight auto contact shadow, conservative tone and edge match, occlusion; final PNG export uses same persisted effects at high resolution. No hidden generative reinterpretation at export. See architecture/SCENE-CANVAS-BLENDING.md.
