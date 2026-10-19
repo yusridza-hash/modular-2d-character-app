@@ -26,3 +26,9 @@ Phase 0 IN PROGRESS, no phase completed. Do not mark pass until runnable skeleto
 - src/studio.tsx: stage-relative drag/drop coordinate correction, excluding selection bounds and editor ground guide during PNG export, restoring overlays in finally.
 - Validation attempted: git clone + npm install + npm run build on container; BLOCKED by DNS failure (Could not resolve host github.com). No successful build/runtime confirmation. Do not mark Phase 0/5/6 complete.
 - Next: run CI or Codespaces npm install, npm run build, and browser smoke test. Remaining: saving real imported image assets durably, compositor/rig integration, page export, real blending.
+
+## Comic editor continuous build — 2026-10-19
+- GitHub Actions TypeScript+Vite build PASS at commit 33b9e75c (after fixing unused Zustand get argument and missing await on imported image file).
+- Implemented search by asset name, clone current panel with new instance IDs, duplicate selected character/prop with independently copied pose and expression.
+- Added Vitest unit suite for placement, independence, panel clone and undo/redo. CI updated to run npm test after bundle build. Test results need a completed run before marking pass.
+- This is still an editor prototype, not finished Phase 5: live production auto-blend tone matching, real character engine integration, page template layout, export parity/browser E2E, durable cloud save and clean scene composite are pending. Phase 0 remains IN PROGRESS; Phase 5/6 PARTIAL.
