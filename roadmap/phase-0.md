@@ -25,3 +25,6 @@ Lingkungan dev siap, schema data + **aturan database Supabase** final, model OSS
 
 ## Comic-only build alignment (2026-10-19)
 Refer to docs/BUILD-SPEC-INDEX.md and canonical UI/rig/blending/versioning/testing contracts. This phase must not add timeline, animation, sound, FPS or video. Character library drag-drop is scene instance based, facial presets are swappable, and scene preview/final export must follow same compositing specification. DoD needs demonstrated tests; documentation alone does not complete phase.
+
+## Additional design gate (2026-10-19)
+Do not mark Phase 0 complete until all items in docs/quality/PREBUILD-DESIGN-GATES.md are reviewed and implemented/validated as appropriate. Produce real wizard/editor/page wireframes, schema and versioned migrations, compositor proof of concept and golden fixtures; mere specification prose is insufficient.
