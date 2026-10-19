@@ -18,7 +18,8 @@
 | Gerakan / posing | docs/04-POSING-SYSTEM.md |
 | Blending + skala | docs/05-BLENDING-AND-SCALE.md |
 | Aset + scene | docs/06-ASSETS-AND-SCENE.md |
-| Schema data | docs/07-DATA-SCHEMA.md |
+| Schema data (JSON API) | docs/07-DATA-SCHEMA.md |
+| **Database Supabase (aturan + SQL)** | docs/08-DATABASE-SUPABASE.md |
 | Kriteria Phase 0 | roadmap/phase-0.md |
 | Kriteria Phase 1 | roadmap/phase-1.md |
 | Kriteria Phase 2 | roadmap/phase-2.md |
@@ -32,7 +33,7 @@
 
 | Phase | Nama | Dokumen kriteria | Prioritas |
 |-------|------|------------------|----------|
-| 0 | Fondasi, schema, riset OSS | phase-0.md | Tinggi |
+| 0 | Fondasi, schema, riset OSS, **DB Supabase** | phase-0.md | Tinggi |
 | 1 | Ingestion multi-angle | phase-1.md | Tinggi |
 | 2 | Sprite pipeline | phase-2.md | Sangat Tinggi |
 | 3 | Composer + posing natural | phase-3.md | Sangat Tinggi |
@@ -44,6 +45,7 @@
 ## Prinsip
 
 - **Rule** ada di `docs/01-BUILD-RULES.md` — semua kode tunduk ke situ.
+- **Database** aturan lengkap di `docs/08-DATABASE-SUPABASE.md` (implementasi migration boleh dikerjakan terpisah).
 - **Bagaimana sprite dibuat** → `docs/03-SPRITE-PIPELINE.md`
 - **Bagaimana gerakan tidak aneh** → `docs/04-POSING-SYSTEM.md`
 - **Bagaimana tidak kaku di background** → `docs/05-BLENDING-AND-SCALE.md`

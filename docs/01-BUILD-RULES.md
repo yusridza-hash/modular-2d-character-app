@@ -10,8 +10,8 @@ Aturan ini mengikat semua phase. Melanggar = utang teknis yang harus dibayar nan
 
 ## 2. Data-Driven, Bukan Hardcode
 
-- Semua karakter, pose, ekspresi, scene disimpan sebagai data (JSON + file PNG).
-- Kode hanya membaca schema yang didefinisikan di `docs/07-DATA-SCHEMA.md`.
+- Semua karakter, pose, ekspresi, scene disimpan sebagai data (DB + Storage / JSON + file).
+- Kode hanya membaca schema yang didefinisikan di `docs/07-DATA-SCHEMA.md` dan `docs/08-DATABASE-SUPABASE.md`.
 - Jangan hardcode nama bagian tubuh di banyak tempat — pakai konstanta/enum dari schema.
 
 ## 3. Pipeline Sprite Harus Reproducible
@@ -45,7 +45,7 @@ Aturan ini mengikat semua phase. Melanggar = utang teknis yang harus dibayar nan
 
 ## 8. Commit & Dokumentasi
 
-- Perubahan schema data harus update `docs/07-DATA-SCHEMA.md` di commit yang sama.
+- Perubahan schema data / database harus update `docs/07-DATA-SCHEMA.md` dan `docs/08-DATABASE-SUPABASE.md` di commit yang sama.
 - Fitur baru yang mengubah cara pose/blend harus update dokumen terkait.
 
 ## 9. Performa & Ukuran Aset
@@ -58,3 +58,11 @@ Aturan ini mengikat semua phase. Melanggar = utang teknis yang harus dibayar nan
 - Kode: English (variable, function, class).
 - Dokumentasi user-facing bisa Indonesia.
 - Nama file sprite: `snake_case` (`upper_arm_l.png`).
+
+## 11. Database & Storage (Supabase)
+
+- Metadata & relasi → PostgreSQL (Supabase).
+- File gambar → Supabase Storage (bukan bytea di DB).
+- RLS: user hanya akses data sendiri (`owner_id = auth.uid()`).
+- Path Storage mengikuti konvensi di `docs/08-DATABASE-SUPABASE.md`.
+- Migration wajib versioned; jangan ubah enum production tanpa migration data.

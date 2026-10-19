@@ -1,8 +1,10 @@
-# 07 — Data Schema (Ringkas)
+# 07 — Data Schema (Aplikasi + Mapping DB)
 
-Schema lengkap akan diisi di Phase 0. Di bawah ini kontrak minimum.
+Schema logika aplikasi. **Sumber kebenaran production** jika pakai Supabase: lihat [08-DATABASE-SUPABASE.md](08-DATABASE-SUPABASE.md).
 
-## Character Project
+API / frontend boleh mengirim/menerima bentuk JSON di bawah; backend memetakan ke tabel.
+
+## Character (response API / export)
 
 ```json
 {
@@ -57,4 +59,14 @@ Schema lengkap akan diisi di Phase 0. Di bawah ini kontrak minimum.
 }
 ```
 
-Perubahan schema **wajib** update file ini (Build Rule #8).
+## Mapping cepat → Supabase
+
+| JSON field | Tabel |
+|------------|--------|
+| character root | `characters` |
+| angles + parts | `character_angles` + `character_parts` |
+| expressions | `character_expressions` |
+| poses | `character_poses` |
+| scene | `scenes.data` + `backgrounds` |
+
+Perubahan kontrak JSON atau tabel **wajib** update file ini dan `08-DATABASE-SUPABASE.md`.

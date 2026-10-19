@@ -2,20 +2,22 @@
 
 ## Tujuan
 
-Lingkungan dev siap, schema data final untuk MVP, model OSS dipilih dan diuji singkat.
+Lingkungan dev siap, schema data + **aturan database Supabase** final, model OSS dipilih dan diuji singkat.
 
 ## Pekerjaan
 
-- Struktur monorepo / folder `apps/web`, `apps/api`, `packages` (atau setara)
+- Struktur monorepo / folder `apps/web`, `apps/api`
 - FastAPI hello + Next/React hello
-- Tulis schema final di `docs/07-DATA-SCHEMA.md` (character + scene minimum)
-- Uji RemBG/BiRefNet + 1 human parsing + SAM2 di script terpisah
+- Schema JSON: `docs/07-DATA-SCHEMA.md`
+- **Database rules & SQL**: `docs/08-DATABASE-SUPABASE.md` (sudah ada — implementasikan migration mengikuti dokumen itu)
+- Uji RemBG/BiRefNet + parsing/SAM2 di script
 - Catat lisensi di `docs/02-TECH-AND-OSS.md`
 
 ## Definition of Done
 
-- [ ] `docs/07-DATA-SCHEMA.md` berisi field wajib character + scene
-- [ ] Script lokal berhasil: 1 gambar → tanpa background
-- [ ] Script lokal berhasil: parsing kasar atau SAM2 mask berjalan
-- [ ] README menunjuk ke roadmap & build rules
+- [ ] `docs/07` dan `docs/08` lengkap dan konsisten
+- [ ] Migration Supabase (enum + tabel + RLS + bucket path) sesuai `08-DATABASE-SUPABASE.md` **atau** dicatat sebagai tugas follow-up eksplisit dengan dokumen sebagai sumber kebenaran
+- [ ] Script lokal: 1 gambar → tanpa background
+- [ ] Script lokal: parsing/SAM2 mask berjalan
+- [ ] README menunjuk roadmap & build rules
 - [ ] Tidak ada dependensi berbayar di path inti
