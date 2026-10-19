@@ -28,3 +28,6 @@ This application transforms consistent character images into reusable 2D sprite 
 
 ## Prototype source (Phase 0 in progress)
 Source code now exists under `src/` with React/Vite + Konva + Zustand. Run `npm install`, `npm run dev` to inspect locally, and `npm run build` before calling it tested. **Build/runtime verification not yet completed.** See [honest feature and test status](docs/quality/PROTOTYPE-STATUS.md). Uploaded images use session-only blob URLs and localStorage layout save is NOT production persistence; do not rely on it for important work.
+
+## Branch validation (Comic Editor)
+Build, Vitest unit tests, Playwright Chromium smoke test and FastAPI tests now PASS on [GitHub Actions run 39224071175](https://github.com/yusridza-hash/modular-2d-character-app/actions/runs/39224071175). This is a tested prototype, not finished Phase 0/5/6. See [canonical current status](docs/quality/PROTOTYPE-STATUS.md). Start frontend: `npm install && npm run dev`; API: `cd apps/api && pip install -r requirements-dev.txt && uvicorn main:app --reload`. Work remains isolated on feature/comic-editor until integration review with Character Engine.
