@@ -3,6 +3,7 @@ import { Stage, Layer, Rect, Group, Circle, Line, Text, Image as KonvaImage } fr
 import { useStudio, currentPanel, selectedInstance, expressionColor } from './store';
 import { Asset, EXPRESSIONS, Instance, PartPose } from './types';
 import CharacterWizard from './wizard/CharacterWizard';
+import AuthBar from './components/AuthBar';
 
 const W = 960;
 const H = 540;
@@ -111,11 +112,7 @@ function Placed({
   onPick: () => void;
   onMove: (x: number, y: number) => void;
 }) {
-  const faceSrc =
-    asset?.expressions?.[o.expression] ||
-    asset?.expressions?.neutral ||
-    asset?.source;
-  const img = useImage(asset?.kind === 'character' && faceSrc && asset.source ? asset.source : asset?.source);
+  const img = useImage(asset?.source);
   const face = useImage(asset?.expressions?.[o.expression]);
 
   if (img && asset?.kind === 'character') {
@@ -181,7 +178,7 @@ export default function Studio() {
   const asset = s.assets.find((a) => a.id === selected?.assetId);
   const bg = useImage(panel.background);
   const stageRef = useRef<{ toDataURL: (o: { pixelRatio: number }) => string } | null>(null);
-  const [notice, setNotice] = useState('Ready · Character Engine Phase 1–4 available');
+  const [notice, setNotice] = useState('Ready · Supabase + Character Engine');
   const [mode, setMode] = useState<'object' | 'pose'>('object');
   const [wizardOpen, setWizardOpen] = useState(false);
 
@@ -289,6 +286,7 @@ export default function Studio() {
         <strong>◈ Modular 2D Studio</strong>
         <span>Project / {panel.name}</span>
         <div className="toolbar">
+          <AuthBar />
           <button type="button" className="primary" onClick={() => setWizardOpen(true)}>
             Character Wizard
           </button>
@@ -326,7 +324,7 @@ export default function Studio() {
       <section className="workspace">
         <aside className="library">
           <h3>Asset Library</h3>
-          <p className="muted">Drag onto canvas · or open Character Wizard</p>
+          <p className="muted">Drag onto canvas · Character Wizard · Supabase sync when signed in</p>
           <div className="assetList">
             {s.assets
               .filter((a) => a.kind !== 'background')
