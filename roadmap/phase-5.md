@@ -14,3 +14,6 @@
 - [ ] Save/reopen, undo/redo, panel duplicate work without master asset mutation.
 - [ ] No video controls, timeline or FPS are implemented.
 See docs/design/UI-UX-SPEC.md and docs/architecture/SCENE-CANVAS-BLENDING.md.
+
+## Additional approved Phase 5 scope
+Unified searchable/favoritable Library with tags, status and thumbnails; editor compositor keeps each rigged character as one selectable scene instance; optional cache invalidation on expression/pose change; hand anchor prop follows wrist; background may contain midground/foreground masks; page layout templates and editable bubble tail; export entire comic page statically. Acceptance per docs/architecture/ASSET-BROWSER-AND-COMPOSITING.md and docs/design/COMIC-PAGE-EDITOR.md.
